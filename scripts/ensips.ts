@@ -131,5 +131,14 @@ function replaceRelativeLinks(markdown: string) {
 }
 
 function removeMarkdownComments(markdown: string) {
-  return markdown.replace(/<!--[\s\S]*?-->/g, '')
+  const commentPattern = /<!--[\s\S]*?-->/g
+  let previous: string
+  let current = markdown
+
+  do {
+    previous = current
+    current = previous.replace(commentPattern, '')
+  } while (current !== previous)
+
+  return current
 }
